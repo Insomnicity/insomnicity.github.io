@@ -1,16 +1,17 @@
 ## Markov Chain Monte Carlo - intuition for new practitioners
 
 Let us say we make n (say 15) observations of an event (employee height), which is mapped to a number (Random Variable). 
-Our belief (The prior) that the random variable follows a normal distribution that has a mean of 70 and standard deviation is known to be 6. 
+Our belief (called the prior) that the random variable follows a normal distribution that has a mean of 70 and standard deviation is known to be 6. 
 We have no knowledge of the distribution that generated the data (The posterior)
 
 The requirement is, say, to generate 1000 samples from the unknown posterior distribution.
 
 Markov Chain Monte Carlo enables sample generation from the posterior distribution, without knowing the parameters of the posterior distribution.
 
-MCMC constructs series of 'steps', where each step represents an update to the belies about the distribution the observed data is from. The steps are constructed such that the belief doesn't 'converge' to a single value. However, if you look at the chain of steps themselves, you may be able to observe that a (large enough) sequence of k steps is similar to another k step sequence in its characteristiics. Each of these k steps then represents a sample from the unknown posterior distribution.
+MCMC constructs series of 'steps', where each step represents an update to the beliefs about the distribution the observed data is from. The steps are constructed such that the belief doesn't 'converge' to a single value. However, if you look at the chain of steps themselves, you may be able to observe that a (large enough) sequence of k steps is similar to another k step sequence in its characteristics. Each of these k steps then represents a sample from the unknown posterior distribution.
 
 There are three steps to generating 1 sample and and entry/input condition:
+
 Input condition: you must have a current belief or guess about the unknown (posterior) distribution.
 
 #### Step 1. Update the current guess to a 'proposed' guess using a proposal mechanism. 
@@ -49,7 +50,8 @@ If the likelihood of the data (being observed) increases with tne new guess, we 
 If the likelihood of the data (being observed) decreases with tne new guess, we sometimes accept the guess and sometimes accept the guess. A good way to think is, we want to accept worse outcomes with lower probability than less worse outcomes.
 
 so our acceptance function looks like 
-    p_accept = min(1, (likelihood(data) with proposal)/(likelihood(data) with current guess))
+
+p_accept = min(1, (likelihood(data) with proposal)/(likelihood(data) with current guess))
 
 If the proposal is accepted, the proposal is added as a sample from mcmc; the proposal now becomes the current guess and the you can go back to step 1 to generate the next sample.
 
